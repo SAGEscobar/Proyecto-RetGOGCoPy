@@ -8,5 +8,6 @@ void sl (void);
 
 void main (void){
 	printf("lol");
+	exit(1);
 }
 
