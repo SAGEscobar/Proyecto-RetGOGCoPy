@@ -6,5 +6,5 @@
 
 void main (void){
 	printf("lol");
-	exit(0);
+	exit(1);
 }
