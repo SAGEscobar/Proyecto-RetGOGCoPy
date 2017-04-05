@@ -5,5 +5,5 @@
 #include <conio.h>
 
 void main (void){
-
+	printf("lol");
 }
