@@ -4,18 +4,22 @@
 #include <graphics.h>
 #include <dos.h>
 
-#define s 115
-
-
 void inicio(void);
 void nombre(void);
-void elegir(void);
 void ayuda(void);
 void Fayuda(void);
 
+#define arriba 72
+#define abajo 80
+#define der 77
+#define izq 75
+
+/*
+                         ***********************NO TOCAR ESTOS COMENTARIOS***********************************
+
 char teclas_direccionales,teclas_secundarias,teclas_tercearias;
-char arriba='H', abajo='P', izquierda='K', derecha='M';/*DIRECCIONALES*/
-char enter='\r',esc=27;/*TECLAS SECUNDARIAS*/
+char arriba='H', abajo='P', izquierda='K', derecha='M';/*DIRECCIONALES
+char enter='\r',esc=27;/*TECLAS SECUNDARIAS
 char F1=';', F2='<',F3=61,F4=62; /*TECLAS TERCEARIAS*/
 
 int i,x=0, y=0,x1,y1;/*Variable para Posiciones de los botones*/
@@ -64,7 +68,7 @@ void main (void)
 
 	setcolor(15);
 	setfillstyle(SOLID_FILL,15); /*Esta parte dibujo el fondo blanco*/
-	rectangle(0,0,640,480);floodfill(1,1,15); 
+	rectangle(0,0,640,480);floodfill(1,1,15);
 
 	setcolor(7);
 	setfillstyle(SOLID_FILL,7);
@@ -77,32 +81,20 @@ void main (void)
 	setcolor(0);
 	setfillstyle(SOLID_FILL,14);
 	circle(275,148,71);floodfill(287,163,0);
-	
+
 	/*Ojos*/
 	setcolor(0);
 	setfillstyle(SOLID_FILL,0);
 	circle(257,121,11);floodfill(260,130,0);
 	circle(293,121,11);floodfill(295,130,0);
-	
+
 	/*Boca*/
 	rectangle(244,166,309,173);floodfill(247,170,0);
-	
+
+
 	/*Botones*/
-	elegir();/*Estas son la funciones del cuadro que elige las figuras y los botones
-	colocar donde sea mas conveniente*/
-	inicio();
-	ayuda();
-	Fayuda();
-
-	getch();
-}
-
-
-
-void inicio(){
-
-
 	/*play*/
+	setlinestyle(0,0,NORM_WIDTH);
 	setcolor(0);
 	setfillstyle(SOLID_FILL,0);
 	circle (53,355,27);
@@ -113,10 +105,21 @@ void inicio(){
 	circle ( 53,428,27);
 	rectangle (42,418,63,440);
 	floodfill (50,424,0);
+	setlinestyle(1,0,THICK_WIDTH);
+	rectangle(255,400,295,440);/*Estas son las coordenades del cuadro de seleccion de figuras*/
+	ayuda();
+	inicio();
+}
 
 
+
+void inicio(){
+	char teclas;
+	posy=2;
 	 do{
 
+     /*
+                        **********************NO TOCAR ESTOS COMENTARIOS************************
      do  {
       teclas_secundarias=getch();
 
@@ -130,25 +133,67 @@ void inicio(){
     }
      while (!(teclas_secundarias==enter || teclas_secundarias==esc
      || teclas_direccionales==arriba || teclas_direccionales==derecha
-     ||teclas_direccionales==abajo  || teclas_direccionales==izquierda));
+     ||teclas_direccionales==abajo  || teclas_direccionales==izquierda));*/
 
-    if (teclas_direccionales==arriba || teclas_direccionales==derecha
-    || teclas_direccionales==izquierda || teclas_direccionales==abajo )
+	 switch(teclas=getch()){
+	 	case arriba:/*Estes es el boton de play en "posy=0"*/
+	 		if (posy==1){
+		 	setcolor(WHITE);
+    		setlinestyle(1,0,THICK_WIDTH);
+			rectangle(23,325+(posy*70),85,390+(posy*70));
+	 		posy = 0;
+	 		setcolor(0);
+			rectangle(23,325+(posy*70),85,390+(posy*70));
+		}
+		break;
+		case abajo:/*Este es el boton Estop en "posy=1"*/
+			if (posy==0||(posy==2)&&teclas!=abajo){
+				if(posy==0){
+					setcolor(WHITE);
+					setlinestyle(1,0,THICK_WIDTH);
+					rectangle(23,325+(posy*70),85,390+(posy*70));
+				}else{
+					setcolor(7);
+					setlinestyle(1,0,THICK_WIDTH);
+					rectangle(255,400,295,440);
+				}
+    		setlinestyle(1,0,THICK_WIDTH);
+			rectangle(23,325+(posy*70),85,390+(posy*70));
+	 		posy = 1;
+	 		setcolor(0);
+			rectangle(23,325+(posy*70),85,390+(posy*70));
+		}
+		break;
+		case der:/*En "posy=2" es el recuadro que encierra la figura*/
+		if(posy==1||posy==0){
+			setcolor(WHITE);
+			rectangle(23,325+(posy*70),85,390+(posy*70));
+			setcolor(0);
+			setlinestyle(1,0,THICK_WIDTH);
+			rectangle(255,400,295,440);
+			posy=2;
+		}
+		break;
+		case izq:
+			if (posy==2){
 
-      setfillstyle(1,WHITE);
-	  bar(23,325+(posy*70),85,390+(posy*70));
+			setcolor(7);
+			setlinestyle(1,0,THICK_WIDTH);
+			rectangle(255,400,295,440);
+	 		posy = 1;
+	 		setcolor(0);
+			rectangle(23,325+(posy*70),85,390+(posy*70));
+		}
+		break;
+	 }
 
-	  if (teclas_direccionales==arriba) posy = posy-1;
 
-	  if (teclas_direccionales==abajo )posy = posy+1;
 
-      if (posy<=-1)posy=1;
-      if (posy>=2)posy=0;
-
-      setlinestyle(0,0,NORM_WIDTH);
+      /*setfillstyle(1,WHITE);
+	  bar(23,325+(posy*70),85,390+(posy*70));*/
+      /*setlinestyle(0,0,NORM_WIDTH);
       setfillstyle(1,BLACK);
       setcolor(BLACK);
-      setcolor(0);
       setfillstyle(SOLID_FILL,0);
 	  circle (53,356,27);
 	  line(44,335,44,375);line(44,375,69,355);line(69,355,44,335);
@@ -156,10 +201,10 @@ void inicio(){
 
       circle(53,428,27);
       rectangle (42,418,63,440);
-      floodfill (50,424,0);
-
+      floodfill (50,424,0);*/
+      /*setcolor(0);
       setlinestyle(1,0,THICK_WIDTH);
-	  rectangle(23,325+(posy*70),85,390+(posy*70));
+	  rectangle(23,325+(posy*70),85,390+(posy*70));*/
 
 
 /*
@@ -169,25 +214,12 @@ void inicio(){
 	  if(teclas_secundarias==enter && posy==1) /* teclas_direccionales=' ';*/
 		/*  aqui se manda  llamar a la funcion  para ingresar el nombre*/
 
-}  while (!(teclas_secundarias==esc));
+}  while (teclas!=27);
 
 }
 
 
-/***********************cuadro de las figuras****************************/
 
-
-void elegir()
-{
-		setlinestyle(1,0,THICK_WIDTH);
-		rectangle(255,400,295,440);
-
-		/*if(teclas_secundarias == enter){
-			aqui colocar la accion de donde se va a seleccionar la figura
-			si esta demasiado grande o peque¤o, acomodar a conveniencia
-		} */
-
-}
 
 
 
@@ -233,17 +265,7 @@ void Fayuda(void)
 
 {
 
-	 int cont;
 	 char a;
-  cont=0;
-  while(cont=1)
-  {
-	if (kbhit())
-	{
-
-	a=getch();
-	if(a==97)
-	{
 
 	/*aqui ubicaran la ayuda*/
 	/*este bar es un ejemplo que confirma que  muestra otra pantalla,cambiar para hacer la ayuda*/
@@ -263,19 +285,9 @@ void Fayuda(void)
 	outtextxy(101,312,"facultad de electrotecnia y computacion") ;
 	/**/
 
-
-   if ((a=getch())=='s' )
-
-	{
-
-
-	 exit(0);
-
-
-	 }
-   }
-   }
+	do{
+		a=getch();
+   }while(a!='s');
 
 }
-
-}
+
