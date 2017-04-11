@@ -9,10 +9,37 @@ void nombre(void);
 void ayuda(void);
 void Fayuda(void);
 
+
+/*-----Declaracion de Variables Globales-------------*/
+
+#define ponertriangulo(prf,prf2,color,borde)       triangulo(prf,prf2,color,borde);
+#define ponerestrella(prfe,prfe2,color,borde)      estrella(prfe,prfe2,color,borde);
+#define ponerrectangulo(prfc,prfc2,color,borde)    rectangulo(prfc,prfc2,color borde);
+#define ponerhexagono(prfx,prfx2,color,borde)      hexagono(prfx,prfx2,color,borde);
+#define ponertrapecio(prft,prft2,color,borde)      trapecio(prft,prft2,color,borde);
+#define ponerpentagono(prfp,prfp2,color,borde)     pentagono(prfp,prfp2,color,borde);
+#define ponerelipse(x,y,radiox,radioy,color,borde) elipse(x,y,radiox,radioy,color,borde);
+#define ponerparag(x,y,color,borde)                parag(x,y,color,borde);
+#define ponertriangrecto(x,y,color,borde)          triangrecto(x,y,color,borde);
+#define ponerrombo(x,y,color,borde)                rombo(x,y,color,borde);
+
 #define arriba 72
 #define abajo 80
 #define der 77
 #define izq 75
+
+/*----------PROTOTIPOS DE LAS FUNCIONES DE LAS FIGURAS ---------------*/
+void triangulo(int prf, int prf2,int color, int borde);
+void estrella (int prfe,int prfe2, int color, int borde);
+void rectangulo(int prfc, int prfc2, int color, int borde);
+void hexagono(int prfx, int prfx2, int color, int borde);
+void trapecio(int prft, int prft2, int color , int borde);
+void pentagono(int prfp, int prfp2,int color, int borde);
+void elipse(int x,int y,int radiox,int radioy,int color,int borde);
+void parag(int x,int y, int color, int borde);
+void triangrecto(int x, int y, int color, int borde);
+void rombo(int x, int y, int color, int borde);
+
 
 /*
                          ***********************NO TOCAR ESTOS COMENTARIOS***********************************
@@ -90,6 +117,27 @@ void main (void)
 
 	/*Boca*/
 	rectangle(244,166,309,173);floodfill(247,170,0);
+	
+	/*-------------------FIGURAS---------------*/
+	/*------ AQUI SE EMPIEZAN A LLAMAR LAS FUNCIONES Q DIBUJAN LAS FIGURAS---*/
+
+	triangulo(246,416,5,1);
+	estrella(119,416,0,4);
+	rectangulo(142,416,4,0);
+	hexagono(168,416,5,1);
+	trapecio(194,416,0,4);
+	pentagono(220,416,4,0);
+	elipse(272,416,12,8,0,4);  /*-en la elipse los dos primeros parametros
+			             q se pasan son el centro los otros dos son radioen x
+			             radio en y ... y los ultimos color y borde*/
+	parag(300,416,4,0);         /*-- PARALELOGRAMO--*/
+	triangrecto(322,416,5,1);   /*--- TRIANGULO RECTANGULO--*/
+	rombo(350,413,0,4);
+	rectangulo(373,413,4,0);
+	hexagono(398,416,5,1);
+	trapecio(425,416,0,4);
+
+	/* NOTA: los parametros del punto se pueden modificar para poder mover la figura completa*/
 
 
 	/*Botones*/
@@ -210,18 +258,12 @@ void inicio(){
 /*
 
 
-
 	  if(teclas_secundarias==enter && posy==1) /* teclas_direccionales=' ';*/
 		/*  aqui se manda  llamar a la funcion  para ingresar el nombre*/
 
 }  while (teclas!=27);
 
 }
-
-
-
-
-
 
 
 void ayuda()
@@ -289,5 +331,170 @@ void Fayuda(void)
 		a=getch();
    }while(a!='s');
 
+}
+
+/* ESTAS SON LAS FUNCIONES QUE DIBUJAN LAS FIGURAS*/
+
+/*----------------TRIANGULO----------------------*/
+void triangulo(int prf, int prf2,int color, int borde){
+
+/* prf=246,prf2=416 estos son valores iniciales usados de prueba SE LE PUEDE PASAR
+CUALQUIER VALOR EN LA FUNCION PRINCIPAL ejemplo: triangulo(58,80,color,borde);
+color = color de relleno  y borde= color del borde **PASAR EN NUMEROS*/
+
+/*---- en x,y,x2,y2 esta la primera linea----- entre x2,y2__ x3,y2 otra linea
+que comparte la y2---- entre x3,y2 e x,y esta la ultima linea*/
+
+/*int x=246, y=399;
+  int x2=258, y2=427;
+  int x3=235, y2=427;
+  int x=246, y=399;
+  int punto_de_referencia= 246,416 */
+  /*-----segun la ubicacion del punto de referencia sera el valor de x e y*/
+
+setcolor(borde);
+setfillstyle(1,color);
+
+line(prf,prf2-17,prf+12,prf2+11);
+line(prf+12,prf2+11,prf-11,prf2+11);
+line(prf-11,prf2+11,prf,prf2-17);
+floodfill(prf,prf2,borde);
+
+}
+
+/*------------------------ESTRELLA------------------------------*/
+
+void estrella (int prfe, int prfe2, int color, int borde){
+/*prfe=119, prfe2=416 -> PUNTO DE REFERENCIA DE LA ESTRELLA*/
+
+setcolor(borde);
+setfillstyle(1,color);
+line(prfe,prfe2-12,  prfe+3,prfe2-6);
+line(prfe+3,prfe2-6, prfe+10,prfe2-6);
+line(prfe+10,prfe2-6, prfe+6,prfe2);
+line(prfe+6,prfe2, prfe+9,prfe2+7);
+line(prfe+9,prfe2+7, prfe+3,prfe2+7);
+line(prfe+3,prfe2+7, prfe,prfe2+13);
+line(prfe,prfe2+13, prfe-3,prfe2+7);
+line(prfe-3,prfe2+7, prfe-10,prfe2+7);
+line(prfe-10,prfe2+7, prfe-6,prfe2);
+line(prfe-6,prfe2, prfe-11,prfe2-6);
+line(prfe-11,prfe2-6, prfe-3,prfe2-6);
+line(prfe-3,prfe2-6, prfe,prfe2-12);
+
+floodfill(prfe,prfe2,borde);
+}
+
+/*---------------RECTANGULO---------------------*/
+
+void rectangulo(int prfc, int prfc2, int color, int borde){
+/*prfc=142, prfc2= 416*/
+
+setcolor(borde);
+setfillstyle(1,color);
+line(prfc-7,prfc2-5, prfc+8,prfc2-5);
+line(prfc+8,prfc2-5, prfc+8,prfc2+7);
+line(prfc+8,prfc2+7, prfc-7,prfc2+7);
+line(prfc-7,prfc2+7, prfc-7,prfc2-5);
+
+floodfill(prfc,prfc2,borde);
+}
+
+/*--------------HEXAGONO-----------------*/
+void hexagono (int prfx, int prfx2, int color, int borde){
+/*prfx=168, prfx2=416*/
+setcolor(borde);
+setfillstyle(1,color);
+
+line(prfx-6,prfx2-10, prfx+6,prfx2-10);
+line(prfx+6,prfx2-10, prfx+10,prfx2);
+line(prfx+10,prfx2, prfx+6,prfx2+12);
+line(prfx+6,prfx2+12, prfx-6,prfx2+12);
+line(prfx-6,prfx2+12, prfx-10,prfx2);
+line(prfx-10,prfx2, prfx-6,prfx2-10);
+ floodfill(prfx,prfx2,borde);
+
+}
+
+/*------------------ TRAPECIO----------------------*/
+
+void trapecio(int prft, int prft2, int color, int borde){
+/* prft=194, prft2=416*/
+
+setcolor(borde);
+setfillstyle(1,color);
+ line(prft-6,prft2-9, prft+6,prft2-9);
+ line(prft+6,prft2-9, prft+10,prft2+10);
+ line(prft+10,prft2+10, prft-10,prft2+10);
+ line(prft-10,prft2+10, prft-6,prft2-9);
+floodfill(prft,prft2,borde);
+
+}
+
+/*---------------------- PENTAGONO--------------------*/
+void pentagono(int prfp, int prfp2, int color, int borde){
+/*prfp=220, prfp2= 416*/
+
+setcolor(borde);
+setfillstyle(1,color);
+ line(  prfp,prfp2-9, prfp+9,prfp2-1);
+ line(prfp+9,prfp2-1, prfp+6,prfp2+11);
+ line(prfp+6,prfp2+11, prfp-6,prfp2+11);
+ line(prfp-6,prfp2+11, prfp-9,prfp2-1);
+ line(prfp-9,prfp2-1, prfp,prfp2-9);
+floodfill(prfp,prfp2,borde);
+
+}
+
+/*---------------------ELIPSE-------------------------*/
+
+/*------ A partir de aqui las variables prf= punto de referencia se cambian
+por X e Y --------------*/
+
+
+void elipse(int x,int y,int radiox,int radioy,int color,int borde){
+/* x=272, y=414*/
+setcolor(borde);
+setfillstyle(1,color);
+ fillellipse(x,y,radiox,radioy);
+}
+
+/*-----------------PARALELOGRAMO------------------*/
+
+void parag(int x, int y, int color, int borde){
+/* x=300, y=416*/
+setcolor(borde);
+setfillstyle(1,color);
+ line(x-6,y-12, x+9,y-12);
+ line(x+9,y-12, x+4,y+9);
+ line(x+4,y+9, x-11,y+9);
+ line(x-11,y+9, x-6,y-12);
+floodfill(x,y,borde);
+}
+
+/*-------------- TRIANGULO RECTANGULO------------------*/
+
+void triangrecto(int x, int y, int color, int borde){
+/* x=322, y=416 */
+
+setcolor(borde);
+setfillstyle(1,color);
+ line(x-5,y-13, x+12,y+7);
+ line(x+12,y+7, x-5,y+7);
+ line(x-5,y+7, x-5,y-13);
+floodfill(x,y,borde);
+}
+
+/*------------------- ROMBO----------------------*/
+void rombo(int x, int y, int color, int borde){
+/* x=350, y=413*/
+
+setcolor(borde);
+setfillstyle(1,color);
+ line(x,y-10, x+10,y+1);
+ line(x+10,y+1, x,y+11);
+ line(x,y+11, x-10,y+1);
+ line(x-10,y+1, x,y-10);
+floodfill(x,y,borde);
 }
 
