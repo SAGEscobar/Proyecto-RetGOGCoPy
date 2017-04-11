@@ -137,7 +137,8 @@ void main (void)
 	hexagono(398,416,5,1);
 	trapecio(425,416,0,4);
 
-	/* NOTA: los parametros del punto se pueden modificar para poder mover la figura completa*/
+	/* NOTA: los parametros del punto se pueden modificar para poder mover la figura completa
+	NOTA 2: Tomar estos ejemplos de referencia, eliminar de ser necesario[los ejemplos]*/
 
 
 	/*Botones*/
